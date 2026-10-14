@@ -14,6 +14,9 @@ import { RESOURCES } from './resources.js';
 gsap.registerPlugin(ScrollTrigger);
 
 const $ = (s, el = document) => el.querySelector(s);
+// atalho do terminal conforme o sistema: ⌘K no Mac, Ctrl K no resto
+const IS_MAC = /mac|iphone|ipad|ipod/i.test(navigator.userAgentData?.platform || navigator.platform || navigator.userAgent);
+const SHORTCUT = IS_MAC ? '⌘K' : 'Ctrl K';
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -31,7 +34,7 @@ const CARDS = [
   { icon: 'send', title: 'Bot do koala-server', desc: 'Opera o servidor pelo Telegram: status, logs, restart com confirmação e perguntas ao Claude Code em modo leitura.', tags: 'TypeScript · Docker · systemd', href: 'https://github.com/devkoalaa/koala-server-telegram-bot' },
   { icon: 'radio', title: 'Stream Message', desc: 'Mensagens pagas via LivePix aparecendo na live: backend, painel e overlay para o OBS.', tags: 'Node · HTML · OBS', href: 'https://github.com/devkoalaa/stream-message' },
   { icon: 'crosshair', title: 'CS2 Smokes Hub', desc: 'Catálogo de smokes do Counter-Strike 2 por mapa, com API própria.', tags: 'Next.js · API', href: 'https://cs2smokeshub.vercel.app' },
-  { icon: 'sparkles', title: 'Este site', desc: 'Partículas em shader escrito à mão, scroll coreografado e um terminal de verdade. Aperte ⌘K.', tags: 'Vite · Three.js · GSAP' },
+  { icon: 'sparkles', title: 'Este site', desc: `Partículas em shader escrito à mão, scroll coreografado e um terminal de verdade. Aperte ${SHORTCUT}.`, tags: 'Vite · Three.js · GSAP' },
 ];
 
 const PHRASES = ['sistemas de segurança pública', 'servidores de GTA RP', 'jogos que rodam no navegador', 'apps que eu mesmo uso', 'a infra que roda tudo isso'];
@@ -49,6 +52,7 @@ const CONTAINERS = [
 
 /* ---------------- static DOM ---------------- */
 
+$$('[data-shortcut]').forEach((el) => { el.textContent = SHORTCUT; });
 $('#marquee').innerHTML = [...STACK, ...STACK].map((s) => `<span>${s}</span>`).join('');
 
 $('#cards').innerHTML = CARDS.map((c) => {
@@ -532,7 +536,7 @@ tickClock();
 setInterval(tickClock, 1000);
 
 console.log('%cdevkoala', 'font: 700 28px "Space Grotesk", sans-serif; color: #7cffc4');
-console.log('curioso, hein? abre o terminal com ⌘K e digita "coala".');
+console.log(`curioso, hein? abre o terminal com ${SHORTCUT} e digita "coala".`);
 
 /* ---------------- go ---------------- */
 
