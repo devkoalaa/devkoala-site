@@ -1,0 +1,21 @@
+{
+  "name": "devkoala-site",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && rsync -az --delete dist/ koala:/var/www/devkoala/"
+  },
+  "dependencies": {
+    "gsap": "^3.13.0",
+    "lenis": "^1.3.4",
+    "lucide": "^0.469.0",
+    "three": "^0.169.0"
+  },
+  "devDependencies": {
+    "vite": "^6.3.5"
+  },
+  "private": true,
+  "type": "module"
+}

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" role="img" aria-label="Herbert Valadares — Full Stack Developer">
+  <defs>
+    <linearGradient id="acc" x1="0" x2="1">
+      <stop offset="0" stop-color="#7cffc4"/>
+      <stop offset="1" stop-color="#8b7bff"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.82" cy="0.5" r="0.45">
+      <stop offset="0" stop-color="#8b7bff" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#8b7bff" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#ffffff" fill-opacity="0.06"/>
+    </pattern>
+    <style>
+      .t { font-family: 'Space Grotesk', 'Segoe UI', Helvetica, Arial, sans-serif; }
+      .m { font-family: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace; }
+      .p { animation: tw 3.2s ease-in-out infinite; }
+      @keyframes tw { 0%, 100% { opacity: .25 } 50% { opacity: 1 } }
+      .role { opacity: 0; animation: cycle 12s infinite; }
+      .r2 { animation-delay: 3s } .r3 { animation-delay: 6s } .r4 { animation-delay: 9s }
+      @keyframes cycle { 0% { opacity: 0; transform: translateY(8px) } 3%, 22% { opacity: 1; transform: none } 25%, 100% { opacity: 0 } }
+      .caret { animation: blink 1s steps(2) infinite; }
+      @keyframes blink { 50% { opacity: 0 } }
+      .float { animation: fl 6s ease-in-out infinite; transform-origin: 980px 160px; }
+      @keyframes fl { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-6px) } }
+    </style>
+  </defs>
+
+  <rect width="1200" height="320" rx="22" fill="#06070b"/>
+  <rect width="1200" height="320" rx="22" fill="url(#dots)"/>
+  <rect width="1200" height="320" rx="22" fill="url(#glow)"/>
+
+  <!-- koala made of dots -->
+  <g class="float" fill="#8b7bff">
+    <g fill="none" stroke="url(#acc)" stroke-width="2.4" stroke-dasharray="1.5 7" stroke-linecap="round">
+      <circle cx="900" cy="112" r="46"/>
+      <circle cx="1060" cy="112" r="46"/>
+      <circle cx="980" cy="168" r="92"/>
+      <circle cx="900" cy="112" r="24"/>
+      <circle cx="1060" cy="112" r="24"/>
+    </g>
+    <ellipse cx="980" cy="188" rx="26" ry="36" fill="url(#acc)" opacity=".9"/>
+    <circle cx="944" cy="152" r="7" fill="#eef0f6"/>
+    <circle cx="1016" cy="152" r="7" fill="#eef0f6"/>
+    <circle class="p" cx="852" cy="210" r="2" fill="#7cffc4"/>
+    <circle class="p" cx="1110" cy="230" r="2" fill="#7cffc4" style="animation-delay:1s"/>
+    <circle class="p" cx="1120" cy="70" r="2" fill="#8b7bff" style="animation-delay:2s"/>
+    <circle class="p" cx="840" cy="60" r="2" fill="#7cffc4" style="animation-delay:.5s"/>
+  </g>
+
+  <text x="64" y="74" class="m" font-size="15" fill="#7cffc4">// devkoala</text>
+  <text x="62" y="150" class="t" font-size="68" font-weight="700" fill="#eef0f6" letter-spacing="-2">Herbert Valadares</text>
+  <text x="64" y="196" class="t" font-size="24" fill="#a3a8b8">Full Stack Developer · SSP-DF · Brasília</text>
+
+  <g class="m" font-size="17" fill="#eef0f6">
+    <text x="64" y="250" fill="#6b7083">$</text>
+    <text x="84" y="250" class="role r1">sistemas de segurança pública</text>
+    <text x="84" y="250" class="role r2">servidor de GTA RP com 846 resources</text>
+    <text x="84" y="250" class="role r3">jogos multiplayer no navegador</text>
+    <text x="84" y="250" class="role r4">a infra que roda tudo isso</text>
+  </g>
+  <text x="64" y="284" class="m" font-size="13" fill="#6b7083">devkoala.xyz</text>
+</svg>

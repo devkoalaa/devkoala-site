@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Herbert Valadares — devkoala</title>
+  <meta name="description" content="Herbert Valadares, desenvolvedor full-stack em Brasília. Sistemas de segurança pública na SSP-DF, servidor de GTA RP, jogos no navegador e a infraestrutura que roda tudo isso." />
+  <meta name="theme-color" content="#06070b" />
+  <meta property="og:title" content="Herbert Valadares — devkoala" />
+  <meta property="og:description" content="Desenvolvedor full-stack em Brasília. Do sistema público ao servidor de GTA RP." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- BOOT -->
+  <div class="boot" id="boot" aria-hidden="true">
+    <pre class="boot__log" id="bootLog"></pre>
+    <div class="boot__bar"><span id="bootBar"></span></div>
+    <div class="boot__pct" id="bootPct">000</div>
+  </div>
+
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span><span class="cursor__label"></span></div>
+  <div class="progress" aria-hidden="true"><span></span></div>
+
+  <header class="nav">
+    <a href="#top" class="nav__logo" data-magnetic>
+      <span class="nav__mark">dk</span><span class="nav__name">devkoala</span>
+    </a>
+    <nav class="nav__links">
+      <a href="#projetos">Projetos</a>
+      <a href="#ssp">SSP-DF</a>
+      <a href="#infra">Infra</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <button class="nav__term" id="openTerm" data-magnetic data-cursor="abrir">
+      <i data-lucide="terminal"></i><kbd>⌘K</kbd>
+    </button>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero" data-shape="0" data-accent="#7cffc4,#8b7bff">
+      <div class="hero__meta mono">
+        <span><i data-lucide="map-pin"></i> Brasília, DF</span>
+        <span class="hero__status"><span class="pulse"></span> disponível para conversar</span>
+      </div>
+      <h1 class="hero__title">
+        <span class="line"><span class="split">Herbert</span></span>
+        <span class="line"><span class="split">Valadares</span></span>
+      </h1>
+      <p class="hero__role">
+        Desenvolvedor full-stack que constrói
+        <span class="scramble" id="scramble">sistemas de segurança pública</span>
+      </p>
+      <div class="hero__foot">
+        <a href="#projetos" class="btn btn--primary" data-magnetic>Ver projetos <i data-lucide="arrow-down"></i></a>
+        <span class="hero__hint mono">mexa o mouse nas partículas · <kbd>⌘K</kbd> abre o terminal</span>
+      </div>
+      <div class="hero__scroll mono" aria-hidden="true"><span>role</span><i></i></div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-label="Tecnologias">
+      <div class="marquee__track mono" id="marquee"></div>
+    </div>
+
+    <!-- ABOUT -->
+    <section class="about" data-shape="1" data-accent="#7cffc4,#8b7bff">
+      <p class="eyebrow mono">// sobre</p>
+      <p class="about__text reveal-words">
+        Em 2019 entrei como estagiário na Secretaria de Segurança Pública do DF e nunca mais parei de construir.
+        De dia, sistemas que a segurança pública usa de verdade. De noite, um servidor de GTA RP com centenas de scripts,
+        jogos que rodam no navegador e um servidor na nuvem que eu mesmo opero.
+        Gosto de produto que funciona em produção, não só em demo.
+      </p>
+      <div class="stats">
+        <div class="stat"><span class="stat__num" data-count="846">0</span><span class="stat__lbl">resources rodando no Automotiva RP</span></div>
+        <div class="stat"><span class="stat__num" data-count="242">0</span><span class="stat__lbl">escritos do zero, prefixo <code>automotiva_</code></span></div>
+        <div class="stat"><span class="stat__num" data-count="45">0</span><span class="stat__lbl">repositórios no GitHub desde 2019</span></div>
+        <div class="stat"><span class="stat__num" data-count="7" id="sspYears">0</span><span class="stat__lbl">anos construindo sistemas na SSP-DF</span></div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <div id="projetos" class="section-head">
+      <p class="eyebrow mono">// projetos em destaque</p>
+      <h2 class="h2">Coisas que estão <em>no ar</em>.</h2>
+    </div>
+
+    <!-- AUTOMOTIVA -->
+    <section class="proj proj--auto" id="automotiva" data-shape="2" data-accent="#ff3b2f,#ff9a3c">
+      <div class="proj__idx mono">01</div>
+      <div class="proj__grid">
+        <div class="proj__info">
+          <img src="/automotiva-logo.png" alt="Automotiva Roleplay" class="auto__logo" width="600" height="600" loading="lazy" />
+          <p class="proj__kicker mono">GTA V · FiveM · servidor de roleplay</p>
+          <h3 class="h3">Automotiva RP</h3>
+          <p class="proj__desc">
+            Um servidor brasileiro de GTA RP focado em carros, que eu desenvolvo e opero. Economia, empregos, polícia,
+            preparação de motor, som de escape por modelo, tráfego com cara de Brasil e um painel web com mapa ao vivo.
+            Tudo isso precisa aguentar dezenas de jogadores simultâneos sem travar.
+          </p>
+          <ul class="feats">
+            <li><i data-lucide="gauge"></i>Dinamômetro, nitro, câmbio e tração simulados</li>
+            <li><i data-lucide="map"></i>Painel web com mapa ao vivo (Next.js + Leaflet + Socket.IO)</li>
+            <li><i data-lucide="shield"></i>Antiexploit, auditoria de economia e diagnóstico de crashes</li>
+            <li><i data-lucide="bot"></i>Bot de Discord com allowlist, tickets e liberação in-game</li>
+          </ul>
+          <div class="chips mono"><span>Lua</span><span>NestJS</span><span>Prisma</span><span>Next.js</span><span>Three.js</span><span>MySQL</span><span>Discord.js</span></div>
+        </div>
+        <div class="proj__visual auto__visual">
+          <div class="tacho" aria-hidden="true">
+            <svg viewBox="0 0 300 300" class="tacho__svg">
+              <defs>
+                <linearGradient id="tg" x1="0" x2="1"><stop offset="0" stop-color="#ff9a3c"/><stop offset="1" stop-color="#ff3b2f"/></linearGradient>
+              </defs>
+              <circle cx="150" cy="150" r="128" class="tacho__track"/>
+              <circle cx="150" cy="150" r="128" class="tacho__fill" id="tachoFill"/>
+              <g id="tachoTicks"></g>
+              <g id="tachoNeedle"><line x1="150" y1="150" x2="150" y2="42"/><circle cx="150" cy="150" r="9"/></g>
+            </svg>
+            <div class="tacho__read"><span id="tachoRpm" class="mono">0</span><small class="mono">RPM × resources</small></div>
+          </div>
+          <div class="reswall mono" id="resWall" aria-label="Lista de resources próprios"></div>
+          <div class="reswall__count mono"><span id="resCount">0</span>/242 carregados</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAVELA LEAGUE -->
+    <section class="proj proj--fl" id="favela" data-shape="3" data-accent="#c6ff3d,#3dffb0">
+      <div class="proj__idx mono">02</div>
+      <div class="proj__grid proj__grid--rev">
+        <div class="proj__visual fl__visual">
+          <div class="fl__stage" id="bikeStage" data-cursor="girar">
+            <canvas id="bikeCanvas"></canvas>
+            <div class="fl__loading mono" id="bikeLoading">carregando moto…</div>
+            <div class="fl__drag mono"><i data-lucide="mouse-pointer-2"></i>arraste para girar</div>
+          </div>
+          <div class="keys mono" aria-hidden="true">
+            <span data-k="w">W</span><span data-k="a">A</span><span data-k="s">S</span><span data-k="d">D</span><span data-k="q" class="wide">Q · grau</span>
+          </div>
+        </div>
+        <div class="proj__info">
+          <p class="proj__kicker mono">jogo multiplayer · navegador</p>
+          <h3 class="h3">Favela League<span class="sub">Grau &amp; Gol</span></h3>
+          <p class="proj__desc">
+            Futebol de moto numa quadra de rua, direto no navegador. Dá grau, derrapa, solta o nitro e manda a bola pro gol.
+            Contra a CPU ou online com um código de sala. A moto aí do lado é de verdade: veio do servidor Automotiva RP.
+          </p>
+          <ol class="pipeline mono" id="pipeline">
+            <li><span>.yft / .ytd</span><small>modelo do GTA</small></li>
+            <li><span>parser próprio</span><small>leitor binário</small></li>
+            <li><span>Blender</span><small>separa chassi, garfo e rodas</small></li>
+            <li><span>.glb + Draco</span><small>comprimido</small></li>
+            <li><span>Three.js</span><small>no seu navegador</small></li>
+          </ol>
+          <div class="chips mono"><span>Three.js</span><span>Física própria</span><span>WebSocket relay</span><span>PeerJS</span><span>Python</span><span>Vite</span></div>
+          <a class="btn btn--primary" href="https://favelaleague.devkoala.xyz" target="_blank" rel="noopener" data-magnetic data-cursor="jogar">
+            <i data-lucide="gamepad-2"></i>Jogar agora
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- KOALA FIT -->
+    <section class="proj proj--fit" id="fit" data-shape="1" data-accent="#4fd1a1,#ffb547">
+      <div class="proj__idx mono">03</div>
+      <div class="proj__grid">
+        <div class="proj__info">
+          <p class="proj__kicker mono">app pessoal · PWA</p>
+          <h3 class="h3">Koala Fit</h3>
+          <p class="proj__desc">
+            O app de treino que eu uso na academia. Registro de séries pensado para uma mão só, evolução de carga,
+            recordes pessoais, sugestão de progressão e uma ofensiva no estilo Duolingo para não furar.
+            Se eu não treino até as 18h, o bot do Telegram me cobra.
+          </p>
+          <ul class="feats">
+            <li><i data-lucide="flame"></i>Ofensiva diária e recordes pessoais</li>
+            <li><i data-lucide="chart-line"></i>Gráficos de carga e peso ao longo do tempo</li>
+            <li><i data-lucide="send"></i>Lembretes e resumo semanal pelo Telegram</li>
+          </ul>
+          <div class="chips mono"><span>Next.js</span><span>TypeScript</span><span>Tailwind v4</span><span>Drizzle</span><span>Postgres</span><span>Docker</span></div>
+        </div>
+        <div class="proj__visual fit__visual">
+          <div class="phone" data-tilt>
+            <div class="phone__notch"></div>
+            <div class="phone__screen">
+              <div class="fit__top">
+                <span class="mono">Ter, 14 out</span>
+                <span class="fit__streak"><i data-lucide="flame"></i><b id="streakNum">0</b> dias</span>
+              </div>
+              <div class="fit__ringwrap">
+                <svg viewBox="0 0 120 120" class="fit__ring">
+                  <circle cx="60" cy="60" r="50" class="ring__bg"/>
+                  <circle cx="60" cy="60" r="50" class="ring__fg" id="fitRing"/>
+                </svg>
+                <div class="fit__ringtxt"><b>4/5</b><small>treinos na semana</small></div>
+              </div>
+              <div class="fit__card">
+                <div class="fit__cardhead"><span>Supino reto</span><span class="pr mono">PR</span></div>
+                <svg viewBox="0 0 220 80" class="fit__chart" preserveAspectRatio="none">
+                  <path id="fitLine" d="M0,70 C20,66 30,62 45,60 S70,58 85,50 S110,46 125,40 S150,36 165,28 S195,20 220,10"/>
+                </svg>
+                <div class="fit__axis mono"><span>40kg</span><span>72kg</span></div>
+              </div>
+              <div class="fit__toast" id="fitToast">
+                <i data-lucide="send"></i>
+                <div><b>Koala Server</b><small>Hoje é dia de perna. Bora?</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INFRA -->
+    <section class="proj proj--infra" id="infra" data-shape="4" data-accent="#3dd9ff,#7b8cff">
+      <div class="proj__idx mono">04</div>
+      <div class="infra__head">
+        <p class="proj__kicker mono">infraestrutura · Oracle Cloud ARM</p>
+        <h3 class="h3">koala-server</h3>
+        <p class="proj__desc">
+          Um servidor ARM na Oracle que eu administro sozinho. Caddy na frente com TLS automático, cada app no seu container,
+          deploy por push no GitHub, backup toda noite e um bot no Telegram que avisa quando algo cai.
+          Este site está rodando nele agora.
+        </p>
+      </div>
+      <div class="infra__grid">
+        <div class="topo" id="topo">
+          <svg viewBox="0 0 640 380" class="topo__svg" aria-label="Diagrama do servidor">
+            <defs>
+              <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <g id="topoLinks"></g>
+            <g id="topoPackets"></g>
+            <g id="topoNodes"></g>
+          </svg>
+        </div>
+        <div class="term-mini mono" aria-label="Saída do docker ps">
+          <div class="term-mini__bar"><i></i><i></i><i></i><span>ubuntu@koala-server</span></div>
+          <pre id="dockerPs"></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- SSP -->
+    <section class="ssp" id="ssp" data-shape="5" data-accent="#4d8dff,#9ad1ff">
+      <div class="section-head section-head--in">
+        <p class="eyebrow mono">// carreira</p>
+        <h2 class="h2">SSP-DF: <em>de estagiário</em> a quem segura o sistema em produção.</h2>
+        <p class="ssp__lead">
+          Na Secretaria de Segurança Pública do Distrito Federal aprendi a fazer software que não pode parar.
+          Front, back, banco, autenticação, deploy e, ultimamente, IA no fluxo de trabalho do time.
+        </p>
+      </div>
+      <div class="timeline">
+        <div class="timeline__line"><span id="tlFill"></span></div>
+        <article class="tl">
+          <span class="tl__dot"></span>
+          <p class="tl__when mono">jul 2019 — jan 2021</p>
+          <h4>Estagiário de Análise e Desenvolvimento de Sistemas</h4>
+          <p>Primeiras telas em produção, C# e JavaScript, componentes reutilizáveis e muita leitura de código legado. Aqui virou hábito entender o sistema antes de mexer nele.</p>
+        </article>
+        <article class="tl">
+          <span class="tl__dot"></span>
+          <p class="tl__when mono">jan 2021 — hoje</p>
+          <h4>Full Stack Developer</h4>
+          <p>APIs em NestJS com Prisma e SQL Server, frontends em Next.js com design system próprio, autenticação centralizada com Keycloak e esteiras no GitLab CI.</p>
+        </article>
+        <article class="tl">
+          <span class="tl__dot"></span>
+          <p class="tl__when mono">agora</p>
+          <h4>Sistemas críticos e IA no time</h4>
+          <p>Monitoramento por vídeo, alertas para centro de operações, análise criminal e servidores MCP que deixam agentes de IA operarem com segurança dentro da casa.</p>
+        </article>
+      </div>
+      <p class="before mono">antes da SSP: estágios na <b>Eletrobras</b> (2017) e na <b>Universidade de Brasília</b> (2015) · formado em Análise e Desenvolvimento de Sistemas pela <b>UNIP</b></p>
+      <div class="sspgrid">
+        <div class="sspcard" data-tilt><i data-lucide="calendar-check"></i><h5>Licenciamento de eventos</h5><p>Cadastro, análise e liberação de eventos realizados no DF.</p></div>
+        <div class="sspcard" data-tilt><i data-lucide="video"></i><h5>Monitoramento por vídeo</h5><p>Câmeras e streaming integrados a um sistema web de operação.</p></div>
+        <div class="sspcard" data-tilt><i data-lucide="bell-ring"></i><h5>Alertas operacionais</h5><p>Notificações em tempo real para o centro de operações.</p></div>
+        <div class="sspcard" data-tilt><i data-lucide="heart-handshake"></i><h5>Rede Lilás</h5><p>App de proteção e acolhimento para mulheres, em React Native.</p></div>
+        <div class="sspcard" data-tilt><i data-lucide="chart-line"></i><h5>Análise criminal</h5><p>Dados de ocorrências transformados em painéis e relatórios.</p></div>
+        <div class="sspcard" data-tilt><i data-lucide="brain-circuit"></i><h5>IA no fluxo do time</h5><p>Servidores MCP para provisionar acessos e automatizar rotinas.</p></div>
+      </div>
+      <div class="chips chips--center mono"><span>Next.js</span><span>NestJS</span><span>Prisma</span><span>SQL Server</span><span>Keycloak</span><span>MUI</span><span>Docker</span><span>GitLab CI</span><span>Vault</span><span>Playwright</span><span>Expo</span><span>MCP</span></div>
+    </section>
+
+    <!-- MORE -->
+    <section class="more" data-shape="3" data-accent="#7cffc4,#8b7bff">
+      <div class="section-head section-head--in">
+        <p class="eyebrow mono">// e mais</p>
+        <h2 class="h2">Outros que eu <em>curto</em> ter feito.</h2>
+      </div>
+      <div class="cards" id="cards"></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contato" data-shape="6" data-accent="#7cffc4,#8b7bff">
+      <p class="eyebrow mono">// contato</p>
+      <h2 class="contact__big"><span class="split">Bora construir</span><br /><span class="split">algo junto?</span></h2>
+      <div class="contact__links">
+        <div class="mailbox">
+          <a href="mailto:herberticleber@gmail.com" class="btn btn--primary btn--xl" data-magnetic data-cursor="escrever">
+            <i data-lucide="mail"></i>herberticleber@gmail.com
+          </a>
+          <button class="btn btn--ghost btn--xl btn--icon" id="copyMail" aria-label="Copiar email" data-cursor="copiar"><i data-lucide="copy"></i></button>
+        </div>
+        <a href="https://www.linkedin.com/in/herbertvaladares/" target="_blank" rel="noopener" class="btn btn--ghost btn--xl" data-magnetic data-cursor="abrir">
+          <i data-lucide="linkedin"></i>LinkedIn
+        </a>
+        <a href="https://github.com/devkoalaa" target="_blank" rel="noopener" class="btn btn--ghost btn--xl" data-magnetic data-cursor="abrir">
+          <i data-lucide="github"></i>GitHub
+        </a>
+        <button class="btn btn--ghost btn--xl" data-open-term data-magnetic><i data-lucide="terminal"></i>terminal</button>
+      </div>
+      <footer class="foot mono">
+        <span>© <span id="year"></span> Herbert Valadares</span>
+        <span id="clock">Brasília</span>
+        <span>feito à mão, servido do koala-server</span>
+      </footer>
+    </section>
+  </main>
+
+  <!-- TERMINAL -->
+  <div class="term" id="term" role="dialog" aria-modal="true" aria-label="Terminal" hidden>
+    <div class="term__win">
+      <div class="term__bar mono">
+        <span class="term__dots"><i></i><i></i><i></i></span>
+        <span>visitante@devkoala: ~</span>
+        <button class="term__close" id="closeTerm" aria-label="Fechar terminal"><i data-lucide="x"></i></button>
+      </div>
+      <div class="term__body mono" id="termBody"></div>
+      <form class="term__input mono" id="termForm" autocomplete="off">
+        <span class="term__ps">visitante@devkoala:~$</span>
+        <input id="termInput" spellcheck="false" aria-label="Comando" />
+      </form>
+    </div>
+  </div>
+
+  <div class="toast mono" id="toast" role="status"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
