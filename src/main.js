@@ -252,44 +252,113 @@ if (!reduced) {
   });
 }
 
-/* ---------------- automotiva: tachometer + resource wall ---------------- */
+/* ---------------- automotiva: painel com troca de marchas + resource wall ---------------- */
 
 (() => {
-  const ticks = $('#tachoTicks');
-  let svg = '';
-  for (let i = 0; i <= 40; i++) {
-    const a = ((-135 + (270 * i) / 40) * Math.PI) / 180;
-    const major = i % 5 === 0;
-    const r1 = 118, r2 = major ? 104 : 110;
-    const x = (r) => 150 + Math.sin(a) * r, y = (r) => 150 - Math.cos(a) * r;
-    svg += `<line x1="${x(r1)}" y1="${y(r1)}" x2="${x(r2)}" y2="${y(r2)}" class="${i >= 34 ? 'red' : ''}"/>`;
-    if (major) svg += `<text x="${x(90)}" y="${y(90)}">${i / 5}</text>`;
-  }
-  ticks.innerHTML = svg;
+  const MAX_RPM = 8000, RED_RPM = 6500, LIMIT_RPM = 7700, IDLE_RPM = 850;
+  const ANGLE = (rpm) => -135 + (270 * rpm) / MAX_RPM;
+  const polar = (deg, r) => {
+    const a = (deg * Math.PI) / 180;
+    return [150 + Math.sin(a) * r, 150 - Math.cos(a) * r];
+  };
 
+  // escala: traço a cada 250 rpm, número a cada 1000
+  let svg = '';
+  for (let rpm = 0; rpm <= MAX_RPM; rpm += 250) {
+    const major = rpm % 1000 === 0, half = rpm % 500 === 0;
+    const red = rpm >= RED_RPM;
+    const [x1, y1] = polar(ANGLE(rpm), 134);
+    const [x2, y2] = polar(ANGLE(rpm), major ? 116 : half ? 123 : 127);
+    svg += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="${major ? 'major ' : ''}${red ? 'red' : ''}"/>`;
+    if (major) {
+      const [tx, ty] = polar(ANGLE(rpm), 99);
+      svg += `<text x="${tx}" y="${ty}" class="${red ? 'red' : ''}">${rpm / 1000}</text>`;
+    }
+  }
+  $('#tachoTicks').innerHTML = svg;
+  const [rx1, ry1] = polar(ANGLE(RED_RPM), 140 - 6);
+  const [rx2, ry2] = polar(ANGLE(MAX_RPM), 140 - 6);
+  $('#tachoRed').setAttribute('d', `M${rx1},${ry1} A134,134 0 0 1 ${rx2},${ry2}`);
+
+  const lights = $('#shiftLights');
+  lights.innerHTML = Array.from({ length: 10 }, (_, i) => `<span class="${i < 4 ? 'g' : i < 7 ? 'y' : 'r'}"></span>`).join('');
+  const leds = [...lights.children];
+
+  const needle = $('#tachoNeedle'), sweep = $('#tachoSweep'), gearEl = $('#tachoGear'), speedEl = $('#tachoSpeed');
   const spans = $$('#resWall span');
   const order = spans.map((_, i) => i).sort(() => Math.random() - 0.5);
-  const fill = $('#tachoFill'), needle = $('#tachoNeedle'), rpm = $('#tachoRpm'), count = $('#resCount'), tacho = $('.tacho');
+  const count = $('#resCount');
   let lit = 0;
-  const render = (p) => {
-    fill.style.strokeDasharray = `${603 * p} 804`;
-    needle.style.transform = `rotate(${-135 + 270 * p}deg)`;
-    rpm.textContent = Math.round(p * 8000);
-    count.textContent = Math.round(p * 242);
-    tacho.classList.toggle('is-redline', p > 0.86);
-    const target = Math.round(p * spans.length);
-    while (lit < target) { const s = spans[order[lit++]]; s.classList.add('on', 'hot'); setTimeout(() => s.classList.remove('hot'), 500); }
-    while (lit > target) spans[order[--lit]].classList.remove('on', 'hot');
+
+  // Rolar = acelerar: 6 marchas, cada uma ocupa 1/6 do scroll. O giro sobe até o corte e cai na troca.
+  const GEAR_START = [IDLE_RPM, 4300, 4900, 5300, 5600, 5900];
+  const VMAX = [58, 98, 140, 184, 228, 274];
+  const drive = (p) => {
+    if (p <= 0.005) return { gear: 'N', rpm: IDLE_RPM, speed: 0 };
+    const g = Math.min(5, Math.floor(p * 6));
+    const t = Math.min(1, p * 6 - g);
+    const ease = 1 - Math.pow(1 - t, 1.6);
+    const rpm = GEAR_START[g] + (LIMIT_RPM + 100 - GEAR_START[g]) * ease;
+    const speed = g === 0 ? (VMAX[0] * (rpm - IDLE_RPM)) / (LIMIT_RPM - IDLE_RPM) : (VMAX[g] * rpm) / LIMIT_RPM;
+    return { gear: String(g + 1), rpm, speed };
   };
-  render(0);
+
+  let progress = 0, target = drive(0), angle = ANGLE(IDLE_RPM), vel = 0, shown = IDLE_RPM, visible = false;
+  const renderWall = (p) => {
+    count.textContent = Math.round(p * 242);
+    const want = Math.round(p * spans.length);
+    while (lit < want) { const sp = spans[order[lit++]]; sp.classList.add('on', 'hot'); setTimeout(() => sp.classList.remove('hot'), 500); }
+    while (lit > want) spans[order[--lit]].classList.remove('on', 'hot');
+  };
+
+  const setGear = (g) => {
+    if (gearEl.textContent === g) return;
+    gearEl.textContent = g;
+    if (!reduced) {
+      gsap.fromTo(gearEl, { scale: 1.35 }, { scale: 1, duration: 0.35, ease: 'back.out(3)' });
+      gsap.fromTo('#tacho', { x: -2 }, { x: 0, duration: 0.25, ease: 'elastic.out(1, 0.3)' });
+    }
+  };
+
+  const tick = (now) => {
+    requestAnimationFrame(tick);
+    if (!visible) return;
+    const t = now / 1000;
+    let rpm = target.rpm;
+    const limiter = target.rpm >= LIMIT_RPM;
+    if (limiter) rpm = LIMIT_RPM - 250 + (Math.sin(t * 38) > 0 ? 350 : 0); // corte de giro
+    else if (target.gear === 'N') rpm += Math.sin(t * 23) * 40 + Math.sin(t * 7) * 25; // marcha lenta tremendo
+
+    const goal = ANGLE(rpm);
+    if (reduced) angle = goal;
+    else {
+      vel += (goal - angle) * 0.14;
+      vel *= 0.74;
+      angle += vel;
+    }
+    needle.style.transform = `rotate(${angle}deg)`;
+    shown = ((angle + 135) / 270) * MAX_RPM;
+    sweep.style.strokeDasharray = `${Math.max(0, (shown / MAX_RPM) * 584)} 780`;
+
+    const on = Math.max(0, Math.min(10, Math.round(((shown - 4800) / (LIMIT_RPM - 4800)) * 10)));
+    leds.forEach((l, i) => l.classList.toggle('on', i < on));
+    lights.classList.toggle('limiter', limiter);
+    lights.classList.toggle('blink', limiter && Math.sin(t * 24) < 0);
+
+    speedEl.textContent = Math.round(target.speed);
+  };
+  requestAnimationFrame(tick);
+
   ScrollTrigger.create({
     trigger: '#automotiva', start: 'top 70%', end: 'bottom 70%', scrub: reduced ? false : 0.6,
-    onUpdate: (self) => render(Math.min(1, self.progress * 1.15)),
+    onUpdate: (self) => {
+      progress = Math.min(1, self.progress * 1.12);
+      target = drive(progress);
+      setGear(target.gear);
+      renderWall(progress);
+    },
   });
-  // a little shake on the redline
-  if (!reduced) setInterval(() => {
-    if (tacho.classList.contains('is-redline')) gsap.fromTo(needle, { x: -1.5 }, { x: 1.5, duration: 0.05, repeat: 3, yoyo: true });
-  }, 400);
+  ScrollTrigger.create({ trigger: '.dash', start: 'top bottom', end: 'bottom top', onToggle: (s) => { visible = s.isActive; } });
 })();
 
 /* ---------------- favela league ---------------- */

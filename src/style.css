@@ -203,22 +203,30 @@ main { position: relative; z-index: 2; }
 .proj--auto .chips span { border-color: rgba(255,59,47,.35); }
 .auto__logo { width: 190px; height: auto; margin: -24px 0 4px -18px; filter: drop-shadow(0 10px 40px rgba(255,59,47,.25)); }
 .auto__visual { display: grid; gap: 22px; }
-.tacho { position: relative; width: min(100%, 380px); aspect-ratio: 1; margin: 0 auto; }
+.dash { width: min(100%, 400px); margin: 0 auto; display: grid; gap: 16px; }
+.shift { display: flex; justify-content: center; gap: 7px; }
+.shift span { width: 24px; height: 9px; border-radius: 5px; background: #17181d; box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); transition: background .05s, box-shadow .05s; }
+.shift span.on.g { background: #3dff7a; box-shadow: 0 0 12px rgba(61,255,122,.8); }
+.shift span.on.y { background: #ffd23d; box-shadow: 0 0 12px rgba(255,210,61,.8); }
+.shift span.on.r { background: #ff3b2f; box-shadow: 0 0 14px rgba(255,59,47,.9); }
+.shift.limiter span { background: #ff3b2f; box-shadow: 0 0 16px rgba(255,59,47,1); }
+.shift.limiter.blink span { background: #2a0d0b; box-shadow: none; }
+.tacho { position: relative; width: 100%; aspect-ratio: 1; filter: drop-shadow(0 30px 60px rgba(0,0,0,.6)); }
 .tacho__svg { width: 100%; height: 100%; overflow: visible; }
-.tacho__track, .tacho__fill { fill: none; stroke-width: 10; transform: rotate(135deg); transform-origin: 150px 150px; }
-.tacho__track { stroke: rgba(255,255,255,.07); stroke-dasharray: 603 804; }
-.tacho__fill { stroke: url(#tg); stroke-linecap: round; stroke-dasharray: 0 804; filter: drop-shadow(0 0 8px rgba(255,59,47,.7)); }
-#tachoTicks line { stroke: rgba(255,255,255,.35); stroke-width: 2; }
-#tachoTicks line.red { stroke: var(--auto); }
-#tachoTicks text { fill: var(--text-3); font: 500 12px var(--font-mono); text-anchor: middle; dominant-baseline: middle; }
-#tachoNeedle line { stroke: var(--auto); stroke-width: 3; stroke-linecap: round; filter: drop-shadow(0 0 6px var(--auto)); }
-#tachoNeedle circle { fill: #15171f; stroke: var(--auto); stroke-width: 3; }
+.tacho__sweep { fill: none; stroke: url(#tSweep); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 0 780; transform: rotate(135deg); transform-origin: 150px 150px; filter: drop-shadow(0 0 6px rgba(255,90,47,.9)); }
+.tacho__red { fill: none; stroke: #ff3b2f; stroke-width: 9; opacity: .85; }
+#tachoTicks line { stroke: rgba(255,255,255,.28); stroke-width: 1.5; }
+#tachoTicks line.major { stroke: #e9ebf2; stroke-width: 3; }
+#tachoTicks line.red { stroke: #ff6a5f; }
+#tachoTicks text { fill: #d6d8e0; font: 600 17px var(--font-display); text-anchor: middle; dominant-baseline: central; }
+#tachoTicks text.red { fill: #ff3b2f; }
+.tacho__unit { fill: var(--text-3); font: 500 9px var(--font-mono); text-anchor: middle; letter-spacing: .08em; }
+.tacho__needle { fill: #ff3b2f; filter: drop-shadow(0 0 5px rgba(255,59,47,.9)); }
 #tachoNeedle { transform-origin: 150px 150px; transform: rotate(-135deg); }
-.tacho__read { position: absolute; left: 0; right: 0; bottom: 18%; text-align: center; display: flex; flex-direction: column; }
-.tacho__read span { font-size: 40px; font-weight: 700; letter-spacing: -0.03em; }
-.tacho__read small { color: var(--text-3); font-size: 11px; }
-.tacho.is-redline .tacho__read span { color: var(--auto); animation: blink .12s steps(2) infinite; }
-@keyframes blink { 50% { opacity: .35; } }
+.tacho__gear { position: absolute; left: 50%; top: 67%; transform: translate(-50%, -50%); min-width: 62px; padding: 0 14px; text-align: center; font-size: 46px; font-weight: 700; line-height: 1.15; color: #fff; border-radius: 12px; background: rgba(255,59,47,.08); border: 1px solid rgba(255,59,47,.35); text-shadow: 0 0 18px rgba(255,59,47,.6); }
+.tacho__speed { position: absolute; left: 0; right: 0; bottom: 7%; display: flex; justify-content: center; align-items: baseline; gap: 6px; }
+.tacho__speed span { font-size: 24px; font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; }
+.tacho__speed small { font-size: 11px; color: var(--text-3); }
 .reswall { height: 210px; overflow: hidden; border: 1px solid rgba(255,59,47,.22); border-radius: 14px; padding: 12px; background: rgba(10,6,6,.72); font-size: 10.5px; line-height: 1.55; display: flex; flex-wrap: wrap; gap: 2px 10px; align-content: flex-start; mask-image: linear-gradient(transparent, #000 18%, #000 82%, transparent); }
 .reswall span { color: #3a2a2a; transition: color .4s, text-shadow .4s; }
 .reswall span.on { color: #ffb3a8; }

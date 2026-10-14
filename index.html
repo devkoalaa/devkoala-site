@@ -108,17 +108,35 @@
           <div class="chips mono"><span>Lua</span><span>NestJS</span><span>Prisma</span><span>Next.js</span><span>Three.js</span><span>MySQL</span><span>Discord.js</span></div>
         </div>
         <div class="proj__visual auto__visual">
-          <div class="tacho" aria-hidden="true">
-            <svg viewBox="0 0 300 300" class="tacho__svg">
-              <defs>
-                <linearGradient id="tg" x1="0" x2="1"><stop offset="0" stop-color="#ff9a3c"/><stop offset="1" stop-color="#ff3b2f"/></linearGradient>
-              </defs>
-              <circle cx="150" cy="150" r="128" class="tacho__track"/>
-              <circle cx="150" cy="150" r="128" class="tacho__fill" id="tachoFill"/>
-              <g id="tachoTicks"></g>
-              <g id="tachoNeedle"><line x1="150" y1="150" x2="150" y2="42"/><circle cx="150" cy="150" r="9"/></g>
-            </svg>
-            <div class="tacho__read"><span id="tachoRpm" class="mono">0</span><small class="mono">RPM × resources</small></div>
+          <div class="dash" aria-hidden="true">
+            <div class="shift" id="shiftLights"></div>
+            <div class="tacho" id="tacho">
+              <svg viewBox="0 0 300 300" class="tacho__svg">
+                <defs>
+                  <radialGradient id="tFace" cx="50%" cy="42%" r="62%">
+                    <stop offset="0" stop-color="#1b1c23"/><stop offset=".7" stop-color="#0c0d11"/><stop offset="1" stop-color="#050608"/>
+                  </radialGradient>
+                  <linearGradient id="tBezel" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#5a5e69"/><stop offset=".35" stop-color="#16171c"/><stop offset=".65" stop-color="#2c2e35"/><stop offset="1" stop-color="#0d0e12"/>
+                  </linearGradient>
+                  <linearGradient id="tSweep" x1="0" x2="1"><stop offset="0" stop-color="#ff9a3c"/><stop offset="1" stop-color="#ff3b2f"/></linearGradient>
+                  <radialGradient id="tCap" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#3a3c45"/><stop offset="1" stop-color="#0b0c10"/></radialGradient>
+                </defs>
+                <circle cx="150" cy="150" r="148" fill="url(#tBezel)"/>
+                <circle cx="150" cy="150" r="140" fill="url(#tFace)"/>
+                <circle cx="150" cy="150" r="124" class="tacho__sweep" id="tachoSweep"/>
+                <path id="tachoRed" class="tacho__red"/>
+                <g id="tachoTicks"></g>
+                <text x="150" y="104" class="tacho__unit">×1000 r/min</text>
+                <g id="tachoNeedle">
+                  <polygon points="146.5,168 153.5,168 150.8,40 149.2,40" class="tacho__needle"/>
+                </g>
+                <circle cx="150" cy="150" r="15" fill="url(#tCap)" stroke="#2c2e36" stroke-width="1.5"/>
+                <circle cx="150" cy="150" r="4" fill="#ff3b2f"/>
+              </svg>
+              <div class="tacho__gear mono" id="tachoGear">N</div>
+              <div class="tacho__speed mono"><span id="tachoSpeed">0</span><small>km/h</small></div>
+            </div>
           </div>
           <div class="reswall mono" id="resWall" aria-label="Lista de resources próprios"></div>
           <div class="reswall__count mono"><span id="resCount">0</span>/242 carregados</div>
