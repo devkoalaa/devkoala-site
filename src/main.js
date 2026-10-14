@@ -5,7 +5,7 @@ import Lenis from 'lenis';
 import {
   createIcons, createElement, MapPin, ArrowDown, Terminal, Gauge, Map, Shield, Bot, MousePointer2, Gamepad2, Flame, ChartLine,
   Send, CalendarCheck, Video, BellRing, HeartHandshake, BrainCircuit, Github, X, Music, MessageCircle, Crosshair,
-  ShoppingBag, Sparkles, ArrowUpRight, RefreshCw, Mail, Copy, Linkedin,
+  Radio, Sparkles, ArrowUpRight, RefreshCw, Mail, Copy, Linkedin,
 } from 'lucide';
 import { createParticles } from './particles.js';
 import { createTerminal } from './terminal.js';
@@ -28,8 +28,8 @@ const CARDS = [
   { icon: 'bot', title: 'Bot Automotiva', desc: 'Allowlist com formulário, tickets com transcrição e liberação de ID direto no banco do jogo.', tags: 'discord.js · MySQL' },
   { icon: 'gauge', title: 'Brasília Dyno', desc: 'Simulador de preparação de motor: escolha peças e veja a curva de potência e o limite do bloco em tempo real.', tags: 'Next.js · Tailwind', href: 'https://brasilia-dyno.vercel.app' },
   { icon: 'message-circle', title: 'Dialogus', desc: 'SaaS de mediação entre psicólogos e pacientes, com sessões, agenda, anotações privadas e assinatura.', tags: 'Turborepo · NestJS · Next.js', href: 'https://dialogus-api.vercel.app' },
-  { icon: 'send', title: 'Bot do koala-server', desc: 'Opera o servidor pelo Telegram: status, logs, restart com confirmação e perguntas ao Claude Code em modo leitura.', tags: 'TypeScript · Docker · systemd' },
-  { icon: 'shopping-bag', title: 'Visão de Rua', desc: 'Loja de streetwear com front e back próprios, feita para uma marca nascida no asfalto.', tags: 'Next.js · Node', href: 'https://visaoderua-front.vercel.app' },
+  { icon: 'send', title: 'Bot do koala-server', desc: 'Opera o servidor pelo Telegram: status, logs, restart com confirmação e perguntas ao Claude Code em modo leitura.', tags: 'TypeScript · Docker · systemd', href: 'https://github.com/devkoalaa/koala-server-telegram-bot' },
+  { icon: 'radio', title: 'Stream Message', desc: 'Mensagens pagas via LivePix aparecendo na live: backend, painel e overlay para o OBS.', tags: 'Node · HTML · OBS', href: 'https://github.com/devkoalaa/stream-message' },
   { icon: 'crosshair', title: 'CS2 Smokes Hub', desc: 'Catálogo de smokes do Counter-Strike 2 por mapa, com API própria.', tags: 'Next.js · API', href: 'https://cs2smokeshub.vercel.app' },
   { icon: 'sparkles', title: 'Este site', desc: 'Partículas em shader escrito à mão, scroll coreografado e um terminal de verdade. Aperte ⌘K.', tags: 'Vite · Three.js · GSAP' },
 ];
@@ -67,7 +67,7 @@ $('#year').textContent = new Date().getFullYear();
 createIcons({
   icons: { MapPin, ArrowDown, Terminal, Gauge, Map, Shield, Bot, MousePointer2, Gamepad2, Flame, ChartLine, Send,
     CalendarCheck, Video, BellRing, HeartHandshake, BrainCircuit, Github, X, Music, MessageCircle, Crosshair,
-    ShoppingBag, Sparkles, ArrowUpRight, RefreshCw, Mail, Copy, Linkedin },
+    Radio, Sparkles, ArrowUpRight, RefreshCw, Mail, Copy, Linkedin },
 });
 
 // split text into chars / words
