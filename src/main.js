@@ -325,16 +325,6 @@ if (!reduced) {
     trigger: '#favela', start: 'top 60%', end: 'center 40%', scrub: true,
     onUpdate: (self) => steps.forEach((li, i) => li.classList.toggle('on', self.progress * steps.length > i)),
   });
-
-  // demo key presses, and real ones light up too
-  const keys = Object.fromEntries($$('.keys span').map((k) => [k.dataset.k, k]));
-  const press = (k, ms = 180) => { keys[k]?.classList.add('down'); setTimeout(() => keys[k]?.classList.remove('down'), ms); };
-  let favelaVisible = false;
-  ScrollTrigger.create({ trigger: '#favela', start: 'top bottom', end: 'bottom top', onToggle: (s) => { favelaVisible = s.isActive; } });
-  const demo = ['w', 'w', 'd', 'w', 'q', 'w', 'a', 's', 'w', 'q'];
-  let di = 0;
-  setInterval(() => { if (favelaVisible && !reduced) press(demo[di++ % demo.length], 260); }, 420);
-  window.addEventListener('keydown', (e) => { if (!/input/i.test(document.activeElement.tagName)) press(e.key.toLowerCase()); });
 })();
 
 /* ---------------- koala fit ---------------- */

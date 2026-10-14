@@ -233,9 +233,6 @@ main { position: relative; z-index: 2; }
 .fl__stage canvas { width: 100%; height: 100%; display: block; }
 .fl__loading { position: absolute; inset: 0; display: grid; place-items: center; color: var(--text-3); font-size: 12px; }
 .fl__drag { position: absolute; left: 18px; bottom: 16px; display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--text-3); }
-.keys { display: flex; gap: 8px; justify-content: center; margin-top: 18px; }
-.keys span { min-width: 40px; height: 40px; display: grid; place-items: center; padding: 0 12px; border-radius: 10px; border: 1px solid var(--border-2); border-bottom-width: 3px; font-size: 13px; color: var(--text-2); background: rgba(6,7,11,.6); transition: all .12s; }
-.keys span.down { transform: translateY(2px); border-bottom-width: 1px; color: #000; background: var(--fl); border-color: var(--fl); }
 .pipeline { list-style: none; padding: 0; margin: 0 0 6px; display: grid; gap: 0; counter-reset: p; }
 .pipeline li { display: flex; align-items: baseline; gap: 14px; padding: 10px 0 10px 30px; position: relative; border-left: 1px dashed rgba(198,255,61,.25); margin-left: 8px; opacity: .25; transition: opacity .5s; }
 .pipeline li::before { counter-increment: p; content: counter(p); position: absolute; left: -9px; top: 12px; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; font-size: 10px; background: var(--bg); border: 1px solid var(--fl); color: var(--fl); }
@@ -368,7 +365,8 @@ main { position: relative; z-index: 2; }
   .reveal-words .w { opacity: 1; }
 }
 .fl__switch { position: absolute; top: 14px; right: 14px; display: flex; align-items: center; gap: 10px; padding: 6px 6px 6px 14px; border-radius: 999px; background: rgba(6,7,11,.7); border: 1px solid rgba(198,255,61,.25); font-size: 12px; }
-.fl__switch button { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--fl); color: #000; transition: transform .4s var(--ease); }
+.fl__switch button { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; padding: 0; background: var(--fl); color: #000; transition: transform .4s var(--ease); }
+.fl__switch button svg { width: 16px; height: 16px; stroke-width: 2.4; display: block; }
 .fl__switch button:hover { transform: rotate(180deg); }
 .caret { color: var(--infra); animation: blink 1s steps(2) infinite; }
 .fl__loading[hidden] { display: none; }
