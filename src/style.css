@@ -236,6 +236,11 @@ main { position: relative; z-index: 2; }
 
 /* favela league */
 .proj--fl { --pa: var(--fl); }
+/* logo do Favela League, igual ao do jogo (Anton + Barlow Condensed) */
+.fl__title { margin-bottom: 44px; }
+.fl-logo { position: relative; display: inline-flex; flex-direction: column; line-height: .86; }
+.fl-logo__word { font-family: 'Anton', Impact, sans-serif; font-weight: 400; font-size: clamp(56px, 6.6vw, 104px); letter-spacing: .01em; color: #f1ece2; text-shadow: 0 4px 0 rgba(0,0,0,.35); }
+.fl-logo__tag { position: absolute; right: -18px; bottom: -22px; background: #f2b705; color: #121212; font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif; font-weight: 800; font-size: clamp(15px, 1.6vw, 22px); letter-spacing: .06em; line-height: 1.2; padding: 4px 12px 3px; transform: rotate(-4deg); box-shadow: 3px 3px 0 #121212; }
 .proj--fl .btn--primary:hover { background: var(--fl); border-color: var(--fl); }
 .fl__stage { position: relative; aspect-ratio: 1 / 1; max-height: 70vh; width: 100%; border-radius: 28px; overflow: hidden;
   background: radial-gradient(60% 50% at 50% 60%, rgba(198,255,61,.14), transparent 70%), rgba(8,10,6,.6); border: 1px solid rgba(198,255,61,.18); touch-action: pan-y; }
