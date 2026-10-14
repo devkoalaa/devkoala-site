@@ -111,14 +111,24 @@ ScrollTrigger.create({
   },
 });
 
-$$('[data-shape]').forEach((sec) => {
-  const shape = Number(sec.dataset.shape);
-  const colors = sec.dataset.accent.split(',');
-  ScrollTrigger.create({
-    trigger: sec, start: 'top 55%', end: 'bottom 45%',
-    onToggle: (self) => self.isActive && particles?.setShape(shape, colors),
+// A forma das partículas é sempre a da seção que cruza o meio da tela. Calcular a partir
+// da posição (em vez de onToggle por seção) evita ficar presa numa forma quando duas
+// seções ficam ativas ao mesmo tempo durante o carregamento.
+const shapeSections = $$('[data-shape]');
+let activeSection = null;
+const syncShape = () => {
+  const mid = innerHeight * 0.5;
+  let sec = shapeSections.find((el) => {
+    const r = el.getBoundingClientRect();
+    return r.top <= mid && r.bottom > mid;
   });
-});
+  if (!sec) sec = scrollY < innerHeight ? shapeSections[0] : activeSection;
+  if (!sec || sec === activeSection) return;
+  activeSection = sec;
+  particles?.setShape(Number(sec.dataset.shape), sec.dataset.accent.split(','));
+};
+ScrollTrigger.create({ start: 0, end: 'max', onUpdate: syncShape, onRefresh: syncShape });
+syncShape();
 
 /* ---------------- boot sequence ---------------- */
 
@@ -169,7 +179,7 @@ function heroIn() {
   if (reduced) return;
   const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
   tl.from('.hero__title .ch', { yPercent: 110, rotate: 8, duration: 1.3, stagger: 0.035 })
-    .from('.hero__role, .hero__foot, .hero__meta, .nav, .hero__scroll', { y: 24, opacity: 0, duration: 1, stagger: 0.08 }, '-=0.9');
+    .from('.hero__role, .hero__foot, .nav, .hero__scroll', { y: 24, opacity: 0, duration: 1, stagger: 0.08 }, '-=0.9');
 }
 
 function scramble(el, text) {

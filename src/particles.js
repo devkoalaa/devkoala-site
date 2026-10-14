@@ -9,9 +9,10 @@ const rand = (a = 1, b) => (b === undefined ? Math.random() * a : a + Math.rando
 function koala(n, mobile) {
   // Head, ears, nose and empty eyes. The head bulges in z so it reads as 3D when the mouse pushes it.
   const out = new Float32Array(n * 3);
+  // a posição na tela vem do uniform uKoalaOffset, que acompanha a proporção da janela
   const s = mobile ? 0.56 : 1;
-  const ox = mobile ? 0 : 2.5;
-  const oy = mobile ? 1.15 : 0.35;
+  const ox = 0;
+  const oy = 0;
   const eyes = [[-0.62, 0.22], [0.62, 0.22]];
   const inCircle = (x, y, cx, cy, r) => (x - cx) ** 2 + (y - cy) ** 2 < r * r;
   let i = 0;
@@ -133,7 +134,7 @@ const vert = /* glsl */ `
   uniform float uW[${SHAPES}];
   uniform float uTime; uniform float uScatter; uniform float uSize; uniform float uPR; uniform float uScroll;
   uniform vec3 uMouse; uniform float uMouseStr;
-  uniform vec3 uColA; uniform vec3 uColB; uniform float uTurbo;
+  uniform vec3 uColA; uniform vec3 uColB; uniform float uTurbo; uniform vec2 uKoalaOffset; uniform float uKoalaScale;
   varying vec3 vCol; varying float vGlow;
 
   vec3 rotY(vec3 p, float a) { float c = cos(a), s = sin(a); return vec3(c*p.x + s*p.z, p.y, -s*p.x + c*p.z); }
@@ -142,7 +143,7 @@ const vert = /* glsl */ `
 
   void main() {
     float t = uTime;
-    vec3 p = position * uW[0];
+    vec3 p = (position * uKoalaScale + vec3(uKoalaOffset, 0.0)) * uW[0];
     p += rotY(aP1, t*0.12 + uScroll) * uW[1];
     p += rotY(aP2, t*0.08) * uW[2];
     vec3 w = aP3; w.y += sin(w.x*0.9 + t*1.1) * 0.35 + cos(w.z*1.3 + t*0.8) * 0.25;
@@ -218,6 +219,8 @@ export function createParticles(canvas, { reduced = false } = {}) {
     uColB: { value: new THREE.Color('#8b7bff') },
     uAlpha: { value: 0.9 },
     uTurbo: { value: 0 },
+    uKoalaOffset: { value: new THREE.Vector2(2.5, 0.35) },
+    uKoalaScale: { value: 1 },
   };
   const mat = new THREE.ShaderMaterial({
     vertexShader: vert, fragmentShader: frag, uniforms,
@@ -237,6 +240,18 @@ export function createParticles(canvas, { reduced = false } = {}) {
     camera.updateProjectionMatrix();
     halfH = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.position.z;
     halfW = halfH * camera.aspect;
+    // coala à direita no desktop, sem passar da borda; centralizado e no alto no celular
+    // (o coala tem ~4.6 unidades de largura de orelha a orelha)
+    if (mobile) {
+      uniforms.uKoalaOffset.value.set(0, 0.95);
+      uniforms.uKoalaScale.value = 1;
+    } else if (halfW < 3.1) {
+      uniforms.uKoalaScale.value = Math.min(1, (halfW * 0.88) / 2.3);
+      uniforms.uKoalaOffset.value.set(0, 1.1);
+    } else {
+      uniforms.uKoalaScale.value = 1;
+      uniforms.uKoalaOffset.value.set(THREE.MathUtils.clamp(halfW - 2.55, 0.6, 2.5), halfW < 4 ? 1.0 : 0.35);
+    }
   };
   resize();
   window.addEventListener('resize', resize);
