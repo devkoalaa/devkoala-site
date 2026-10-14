@@ -5,7 +5,7 @@ import Lenis from 'lenis';
 import {
   createIcons, createElement, MapPin, ArrowDown, Terminal, Gauge, Map, Shield, Bot, MousePointer2, Gamepad2, Flame, ChartLine,
   Send, CalendarCheck, Video, BellRing, HeartHandshake, BrainCircuit, Github, X, Music, MessageCircle, Crosshair,
-  Radio, Sparkles, ArrowUpRight, RefreshCw, Mail, Copy, Linkedin,
+  Radio, Sparkles, ArrowUpRight, RefreshCw, Mail, Copy, Linkedin, Command,
 } from 'lucide';
 import { createParticles } from './particles.js';
 import { createTerminal } from './terminal.js';
@@ -52,7 +52,11 @@ const CONTAINERS = [
 
 /* ---------------- static DOM ---------------- */
 
-$$('[data-shortcut]').forEach((el) => { el.textContent = SHORTCUT; });
+$$('[data-shortcut]').forEach((el) => {
+  // no Mac usa o ícone de command: o glifo ⌘ da fonte mono sai minúsculo
+  if (IS_MAC) el.replaceChildren(createElement(Command), document.createTextNode('K'));
+  else el.textContent = SHORTCUT;
+});
 $('#marquee').innerHTML = [...STACK, ...STACK].map((s) => `<span>${s}</span>`).join('');
 
 $('#cards').innerHTML = CARDS.map((c) => {

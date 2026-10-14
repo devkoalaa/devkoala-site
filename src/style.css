@@ -113,7 +113,8 @@ main { position: relative; z-index: 2; }
 .nav__term { display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 16px; border-radius: 999px; border: 1px solid var(--border-2); background: rgba(6,7,11,.6); backdrop-filter: blur(10px); font-size: 14px; color: var(--text); }
 .nav__term svg.lucide { width: 18px; height: 18px; color: var(--accent); }
 .nav__term:hover { border-color: var(--accent); }
-.nav__kbd { font-size: 13px; font-weight: 500; padding: 4px 10px; border-radius: 999px; color: var(--text); background: var(--surface-2); border-color: var(--border-2); letter-spacing: .02em; }
+.nav__kbd { display: inline-flex; align-items: center; gap: 2px; font-size: 14px; font-weight: 500; line-height: 1; padding: 5px 10px; border-radius: 999px; color: var(--text); background: var(--surface-2); border-color: var(--border-2); letter-spacing: .02em; }
+.nav__kbd svg.lucide { width: 14px; height: 14px; stroke-width: 2.2; color: inherit; }
 @media (max-width: 760px) { .nav__links { display: none; } .nav__kbd, .nav__termlbl { display: none; } .nav__term { padding: 10px; } }
 
 /* ---------- typography ---------- */
