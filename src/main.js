@@ -127,7 +127,12 @@ const syncShape = () => {
   activeSection = sec;
   particles?.setShape(Number(sec.dataset.shape), sec.dataset.accent.split(','));
 };
-ScrollTrigger.create({ start: 0, end: 'max', onUpdate: syncShape, onRefresh: syncShape });
+const syncHero = () => particles?.setHero(Math.min(1, Math.max(0, scrollY / (innerHeight * 0.9))));
+ScrollTrigger.create({
+  start: 0, end: 'max',
+  onUpdate: () => { syncShape(); syncHero(); },
+  onRefresh: () => { syncShape(); syncHero(); },
+});
 syncShape();
 
 /* ---------------- boot sequence ---------------- */

@@ -134,7 +134,7 @@ const vert = /* glsl */ `
   uniform float uW[${SHAPES}];
   uniform float uTime; uniform float uScatter; uniform float uSize; uniform float uPR; uniform float uScroll;
   uniform vec3 uMouse; uniform float uMouseStr;
-  uniform vec3 uColA; uniform vec3 uColB; uniform float uTurbo; uniform vec2 uKoalaOffset; uniform float uKoalaScale;
+  uniform vec3 uColA; uniform vec3 uColB; uniform float uTurbo; uniform vec2 uKoalaOffset; uniform float uKoalaScale; uniform float uHero;
   varying vec3 vCol; varying float vGlow;
 
   vec3 rotY(vec3 p, float a) { float c = cos(a), s = sin(a); return vec3(c*p.x + s*p.z, p.y, -s*p.x + c*p.z); }
@@ -143,7 +143,11 @@ const vert = /* glsl */ `
 
   void main() {
     float t = uTime;
-    vec3 p = (position * uKoalaScale + vec3(uKoalaOffset, 0.0)) * uW[0];
+    // coala reage ao scroll do hero: gira, recua e se desfaz aos poucos
+    vec3 kp = rotY(position * uKoalaScale, uHero * 1.1);
+    kp += (aRand.xyz - 0.5) * uHero * uHero * 5.0;
+    kp.z -= uHero * 1.5;
+    vec3 p = (kp + vec3(uKoalaOffset, 0.0)) * uW[0];
     p += rotY(aP1, t*0.12 + uScroll) * uW[1];
     p += rotY(aP2, t*0.08) * uW[2];
     vec3 w = aP3; w.y += sin(w.x*0.9 + t*1.1) * 0.35 + cos(w.z*1.3 + t*0.8) * 0.25;
@@ -221,6 +225,7 @@ export function createParticles(canvas, { reduced = false } = {}) {
     uTurbo: { value: 0 },
     uKoalaOffset: { value: new THREE.Vector2(2.5, 0.35) },
     uKoalaScale: { value: 1 },
+    uHero: { value: 0 },
   };
   const mat = new THREE.ShaderMaterial({
     vertexShader: vert, fragmentShader: frag, uniforms,
@@ -246,8 +251,10 @@ export function createParticles(canvas, { reduced = false } = {}) {
       uniforms.uKoalaOffset.value.set(0, 0.95);
       uniforms.uKoalaScale.value = 1;
     } else if (halfW < 3.1) {
-      uniforms.uKoalaScale.value = Math.min(1, (halfW * 0.88) / 2.3);
-      uniforms.uKoalaOffset.value.set(0, 1.1);
+      // janela estreita/alta: coala menor e no alto, acima do nome
+      const k = Math.min(1, (halfW * 0.72) / 2.3);
+      uniforms.uKoalaScale.value = k;
+      uniforms.uKoalaOffset.value.set(0, halfH - 1.95 * k - 0.45);
     } else {
       uniforms.uKoalaScale.value = 1;
       uniforms.uKoalaOffset.value.set(THREE.MathUtils.clamp(halfW - 2.55, 0.6, 2.5), halfW < 4 ? 1.0 : 0.35);
@@ -314,6 +321,7 @@ export function createParticles(canvas, { reduced = false } = {}) {
   return {
     setShape,
     setScroll: (y) => { scrollY = y; },
+    setHero: (p) => { uniforms.uHero.value = reduced ? 0 : p; },
     assemble: () => gsap.to(uniforms.uScatter, { value: 0, duration: 2.4, ease: 'expo.out' }),
     burst: () => gsap.fromTo(uniforms.uScatter, { value: 0.35 }, { value: 0, duration: 2.2, ease: 'expo.out' }),
     toggleTurbo: () => {
