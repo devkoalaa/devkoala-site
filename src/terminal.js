@@ -49,9 +49,9 @@ dica: tem pelo menos dois comandos escondidos.`),
 `Herbert Valadares — desenvolvedor full-stack em Brasília.
 Entrei na SSP-DF como estagiário em 2019; desde 2021 sou Full Stack Developer lá.
 Formado em Análise e Desenvolvimento de Sistemas pela UNIP.
-Fora do expediente: servidor de GTA RP, jogos no navegador e um servidor ARM que eu mesmo opero.`),
+Fora do expediente: servidor de GTA RP com 100+ jogadores simultâneos, jogos no navegador e um servidor ARM que eu mesmo opero.`),
     projetos: () => print(
-`<span class="acc">01</span>  Automotiva RP     servidor de GTA RP, 846 resources (242 meus)
+`<span class="acc">01</span>  Automotiva RP     servidor de GTA RP, 100+ jogadores simultâneos
 <span class="acc">02</span>  Favela League     futebol de moto multiplayer no navegador
 <span class="acc">03</span>  Koala Fit         app de treino com ofensiva e bot no Telegram
 <span class="acc">04</span>  koala-server      Oracle ARM, Caddy, Docker, CI e alertas

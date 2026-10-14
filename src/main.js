@@ -241,7 +241,7 @@ $$('[data-count]').forEach((el) => {
   const o = { v: 0 };
   ScrollTrigger.create({
     trigger: el, start: 'top 90%', once: true,
-    onEnter: () => gsap.to(o, { v: end, duration: reduced ? 0 : 2, ease: 'power3.out', onUpdate: () => { el.textContent = Math.round(o.v); } }),
+    onEnter: () => gsap.to(o, { v: end, duration: reduced ? 0 : 2, ease: 'power3.out', onUpdate: () => { el.textContent = Math.round(o.v) + (o.v >= end ? el.dataset.suffix || '' : ''); } }),
   });
 });
 
