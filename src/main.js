@@ -415,8 +415,8 @@ if (!reduced) {
 
 (() => {
   const NODES = [
-    ['devkoala.xyz', 'este site'],
-    ['fit.devkoala.xyz', 'koala-fit · next.js'],
+    ['devkoala.com', 'este site'],
+    ['fit.devkoala.com', 'koala-fit · next.js'],
     ['favelaleague', 'estático + relay ws'],
     ['status', 'uptime-kuma'],
     ['monitor', 'beszel'],

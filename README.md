@@ -1,6 +1,6 @@
-# devkoala.xyz
+# devkoala.com
 
-Meu portfólio: [devkoala.xyz](https://devkoala.xyz).
+Meu portfólio: [devkoala.com](https://devkoala.com).
 
 Partículas em WebGL com shader escrito à mão (um coala que vira esfera, anel, terreno, rede e galáxia conforme a rolagem), cada projeto com a sua própria animação e um terminal escondido. Aperte <kbd>⌘K</kbd> no site e digite `help`.
 
@@ -18,7 +18,7 @@ npm install
 npm run dev
 ```
 
-Os modelos 3D das motos (`public/models/*.glb`) vêm do [Favela League](https://favelaleague.devkoala.xyz) e não estão no repositório. Sem eles o site funciona, só o visualizador da moto fica vazio.
+Os modelos 3D das motos (`public/models/*.glb`) vêm do [Favela League](https://favelaleague.devkoala.com) e não estão no repositório. Sem eles o site funciona, só o visualizador da moto fica vazio.
 
 ## Deploy
 

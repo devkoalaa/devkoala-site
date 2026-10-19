@@ -78,14 +78,14 @@ ia           Claude Code · servidores MCP`),
 
 <span class="acc">visitante</span>@<span class="acc">devkoala</span>
 -------------------
-OS        devkoala.xyz (logo .com)
+OS        devkoala.com
 Host      koala-server · Oracle Cloud ARM64
 Kernel    café coado 6.0
 Uptime    na SSP-DF desde jul/2019
 Shell     zsh + Claude Code
 Packages  45 repos · 846 resources
 Theme     escuro, sempre`),
-    jogar: () => { print('abrindo favelaleague.devkoala.xyz…'); window.open('https://favelaleague.devkoala.xyz', '_blank', 'noopener'); },
+    jogar: () => { print('abrindo favelaleague.devkoala.com…'); window.open('https://favelaleague.devkoala.com', '_blank', 'noopener'); },
     github: () => { print('abrindo github.com/devkoalaa…'); window.open('https://github.com/devkoalaa', '_blank', 'noopener'); },
     contato: () => print(
 `email     ${link('mailto:herberticleber@gmail.com', 'herberticleber@gmail.com')}
