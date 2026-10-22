@@ -88,23 +88,15 @@
 
     <!-- AUTOMOTIVA -->
     <section class="proj proj--auto" id="automotiva" data-shape="2" data-accent="#ff3b2f,#ff9a3c">
-      <div class="proj__idx mono">01</div>
       <div class="proj__grid">
         <div class="proj__info">
           <p class="proj__kicker mono">GTA V · FiveM · servidor de roleplay</p>
           <h3 class="h3 auto__title"><img src="/automotiva-logo.webp" alt="Automotiva RP" class="auto__logo" width="900" height="449" loading="lazy" /></h3>
           <p class="proj__desc">
-            Um servidor brasileiro de GTA RP focado em carros, que eu desenvolvo e opero. Economia, empregos, polícia,
-            preparação de motor, som de escape por modelo, tráfego com cara de Brasil e um painel web com mapa ao vivo.
-            Tudo isso aguenta mais de 100 jogadores simultâneos no horário de pico, sem travar.
+            Servidor brasileiro de GTA RP focado em carros, que eu desenvolvo e opero. Economia, polícia, preparação de motor
+            e um painel web com mapa ao vivo, aguentando mais de 100 jogadores simultâneos.
           </p>
-          <ul class="feats">
-            <li><i data-lucide="gauge"></i>Dinamômetro, nitro, câmbio e tração simulados</li>
-            <li><i data-lucide="map"></i>Painel web com mapa ao vivo (Next.js + Leaflet + Socket.IO)</li>
-            <li><i data-lucide="shield"></i>Antiexploit, auditoria de economia e diagnóstico de crashes</li>
-            <li><i data-lucide="bot"></i>Bot de Discord com allowlist, tickets e liberação in-game</li>
-          </ul>
-          <div class="chips mono"><span>Lua</span><span>NestJS</span><span>Prisma</span><span>Next.js</span><span>Three.js</span><span>MySQL</span><span>Discord.js</span></div>
+          <div class="chips mono"><span>Lua</span><span>NestJS</span><span>Next.js</span><span>MySQL</span></div>
         </div>
         <div class="proj__visual auto__visual">
           <div class="dash" aria-hidden="true">
@@ -137,15 +129,12 @@
               <div class="tacho__speed mono"><span id="tachoSpeed">0</span><small>km/h</small></div>
             </div>
           </div>
-          <div class="reswall mono" id="resWall" aria-label="Lista de resources próprios"></div>
-          <div class="reswall__count mono"><span id="resCount">0</span>/242 carregados</div>
         </div>
       </div>
     </section>
 
     <!-- FAVELA LEAGUE -->
     <section class="proj proj--fl" id="favela" data-shape="3" data-accent="#c6ff3d,#3dffb0">
-      <div class="proj__idx mono">02</div>
       <div class="proj__grid proj__grid--rev">
         <div class="proj__visual fl__visual">
           <div class="fl__stage" id="bikeStage" data-cursor="girar">
@@ -160,17 +149,10 @@
             <span class="fl-logo" aria-hidden="true"><span class="fl-logo__word">FAVELA</span><span class="fl-logo__word">LEAGUE</span><span class="fl-logo__tag">GRAU &amp; GOL</span></span>
           </h3>
           <p class="proj__desc">
-            Futebol de moto numa quadra de rua, direto no navegador. Dá grau, derrapa, solta o nitro e manda a bola pro gol.
-            Contra a CPU ou online, com busca de partida e um relay WebSocket próprio sincronizando a 60 Hz. Roda até no tablet dentro do Automotiva RP, e a moto aí do lado é de verdade: veio do próprio servidor.
+            Futebol de moto numa quadra de rua, direto no navegador. Contra a CPU ou online, com busca de partida e um relay
+            WebSocket próprio. A moto aí do lado veio do próprio Automotiva RP.
           </p>
-          <ol class="pipeline mono" id="pipeline">
-            <li><span>.yft / .ytd</span><small>modelo do GTA</small></li>
-            <li><span>parser próprio</span><small>leitor binário</small></li>
-            <li><span>Blender</span><small>separa chassi, garfo e rodas</small></li>
-            <li><span>.glb + Draco</span><small>comprimido</small></li>
-            <li><span>Three.js</span><small>no seu navegador</small></li>
-          </ol>
-          <div class="chips mono"><span>Three.js</span><span>Física própria</span><span>Matchmaking</span><span>WebSocket relay</span><span>Node.js</span><span>Python</span><span>Vite</span></div>
+          <div class="chips mono"><span>Three.js</span><span>WebSocket</span><span>Node.js</span><span>Python</span></div>
           <a class="btn btn--primary" href="https://favelaleague.devkoala.com" target="_blank" rel="noopener" data-magnetic data-cursor="jogar">
             <i data-lucide="gamepad-2"></i>Jogar agora
           </a>
@@ -180,22 +162,15 @@
 
     <!-- KOALA FIT -->
     <section class="proj proj--fit" id="fit" data-shape="1" data-accent="#4fd1a1,#ffb547">
-      <div class="proj__idx mono">03</div>
       <div class="proj__grid">
         <div class="proj__info">
           <p class="proj__kicker mono">app pessoal · PWA</p>
           <h3 class="h3">Koala Fit</h3>
           <p class="proj__desc">
-            O app de treino que eu uso na academia. Registro de séries pensado para uma mão só, evolução de carga,
-            recordes pessoais, sugestão de progressão e uma ofensiva no estilo Duolingo para não furar.
-            Se eu não treino até as 18h, o bot do Telegram me cobra.
+            O app de treino que eu uso na academia: registro de séries com uma mão só, evolução de carga e uma ofensiva
+            diária para não furar. Se eu não treino até as 18h, o bot do Telegram me cobra.
           </p>
-          <ul class="feats">
-            <li><i data-lucide="flame"></i>Ofensiva diária e recordes pessoais</li>
-            <li><i data-lucide="chart-line"></i>Gráficos de carga e peso ao longo do tempo</li>
-            <li><i data-lucide="send"></i>Lembretes e resumo semanal pelo Telegram</li>
-          </ul>
-          <div class="chips mono"><span>Next.js</span><span>TypeScript</span><span>Tailwind v4</span><span>Drizzle</span><span>Postgres</span><span>Docker</span></div>
+          <div class="chips mono"><span>Next.js</span><span>Drizzle</span><span>Postgres</span><span>Docker</span></div>
         </div>
         <div class="proj__visual fit__visual">
           <div class="phone" data-tilt>
@@ -231,14 +206,12 @@
 
     <!-- INFRA -->
     <section class="proj proj--infra" id="infra" data-shape="4" data-accent="#3dd9ff,#7b8cff">
-      <div class="proj__idx mono">04</div>
       <div class="infra__head">
         <p class="proj__kicker mono">infraestrutura · Oracle Cloud ARM</p>
         <h3 class="h3">koala-server</h3>
         <p class="proj__desc">
-          Um servidor ARM na Oracle que eu administro sozinho. Caddy na frente com TLS automático, cada app no seu container,
-          deploy por push no GitHub, backup toda noite e um bot no Telegram que avisa quando algo cai.
-          Este site está rodando nele agora.
+          Servidor ARM na Oracle Cloud que eu administro sozinho: Caddy com TLS automático, apps em containers, deploy por
+          push e alertas no Telegram. Este site roda nele.
         </p>
       </div>
       <div class="infra__grid">
@@ -252,10 +225,6 @@
             <g id="topoNodes"></g>
           </svg>
         </div>
-        <div class="term-mini mono" aria-label="Saída do docker ps">
-          <div class="term-mini__bar"><i></i><i></i><i></i><span>ubuntu@koala-server</span></div>
-          <pre id="dockerPs"></pre>
-        </div>
       </div>
     </section>
 
@@ -265,8 +234,7 @@
         <p class="eyebrow mono">// carreira</p>
         <h2 class="h2">SSP-DF: <em>de estagiário</em> a quem segura o sistema em produção.</h2>
         <p class="ssp__lead">
-          Na Secretaria de Segurança Pública do Distrito Federal aprendi a fazer software que não pode parar.
-          Front, back, banco, autenticação, deploy e, ultimamente, IA no fluxo de trabalho do time.
+          Front, back, banco, autenticação e deploy em sistemas que não podem parar.
         </p>
       </div>
       <div class="timeline">
@@ -275,19 +243,19 @@
           <span class="tl__dot"></span>
           <p class="tl__when mono">jul 2019 — jan 2021</p>
           <h4>Estagiário de Análise e Desenvolvimento de Sistemas</h4>
-          <p>Primeiras telas em produção, C# e JavaScript, componentes reutilizáveis e muita leitura de código legado. Aqui virou hábito entender o sistema antes de mexer nele.</p>
+          <p>Primeiras entregas em produção com C# e JavaScript.</p>
         </article>
         <article class="tl">
           <span class="tl__dot"></span>
           <p class="tl__when mono">jan 2021 — hoje</p>
           <h4>Full Stack Developer</h4>
-          <p>APIs em NestJS com Prisma e SQL Server, frontends em Next.js com design system próprio, autenticação centralizada com Keycloak e esteiras no GitLab CI.</p>
+          <p>APIs em NestJS e SQL Server, frontends em Next.js e autenticação com Keycloak.</p>
         </article>
         <article class="tl">
           <span class="tl__dot"></span>
           <p class="tl__when mono">agora</p>
           <h4>Sistemas críticos e IA no time</h4>
-          <p>Monitoramento por vídeo, alertas para centro de operações, análise criminal e servidores MCP que deixam agentes de IA operarem com segurança dentro da casa.</p>
+          <p>Monitoramento por vídeo, alertas operacionais e IA no fluxo do time.</p>
         </article>
       </div>
       <p class="before mono">antes da SSP: estágios na <b>Eletrobras</b> (2017) e na <b>Universidade de Brasília</b> (2015) · formado em Análise e Desenvolvimento de Sistemas pela <b>UNIP</b></p>
@@ -299,7 +267,6 @@
         <div class="sspcard" data-tilt><i data-lucide="chart-line"></i><h5>Análise criminal</h5><p>Dados de ocorrências transformados em painéis e relatórios.</p></div>
         <div class="sspcard" data-tilt><i data-lucide="brain-circuit"></i><h5>IA no fluxo do time</h5><p>Servidores MCP para provisionar acessos e automatizar rotinas.</p></div>
       </div>
-      <div class="chips chips--center mono"><span>Next.js</span><span>NestJS</span><span>Prisma</span><span>SQL Server</span><span>Keycloak</span><span>MUI</span><span>Docker</span><span>GitLab CI</span><span>Vault</span><span>Playwright</span><span>Expo</span><span>MCP</span></div>
     </section>
 
     <!-- MORE -->

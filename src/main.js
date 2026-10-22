@@ -9,7 +9,6 @@ import {
 } from 'lucide';
 import { createParticles } from './particles.js';
 import { createTerminal } from './terminal.js';
-import { RESOURCES } from './resources.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -27,28 +26,14 @@ const STACK = ['TypeScript', 'Next.js', 'NestJS', 'React Native', 'Three.js', 'L
   'Postgres', 'Docker', 'Caddy', 'Keycloak', 'GitHub Actions', 'GitLab CI', 'Socket.IO', 'Blender', 'Claude Code · MCP'];
 
 const CARDS = [
-  { icon: 'music', title: 'Clodoaldo', desc: 'Bot de música para Discord, na pele de um pinguim muito mal-humorado. Fila, loop, rádios e um comando para xingar o amigo.', tags: 'Node · discord.js · Docker' },
-  { icon: 'bot', title: 'Bot Automotiva', desc: 'Allowlist com formulário, tickets com transcrição e liberação de ID direto no banco do jogo.', tags: 'discord.js · MySQL' },
-  { icon: 'gauge', title: 'Brasília Dyno', desc: 'Simulador de preparação de motor: escolha peças e veja a curva de potência e o limite do bloco em tempo real.', tags: 'Next.js · Tailwind', href: 'https://brasilia-dyno.vercel.app' },
-  { icon: 'message-circle', title: 'Dialogus', desc: 'SaaS de mediação entre psicólogos e pacientes, com sessões, agenda, anotações privadas e assinatura.', tags: 'Turborepo · NestJS · Next.js', href: 'https://dialogus-api.vercel.app' },
-  { icon: 'send', title: 'Bot do koala-server', desc: 'Opera o servidor pelo Telegram: status, logs, restart com confirmação e perguntas ao Claude Code em modo leitura.', tags: 'TypeScript · Docker · systemd', href: 'https://github.com/devkoalaa/koala-server-telegram-bot' },
-  { icon: 'radio', title: 'Stream Message', desc: 'Mensagens pagas via LivePix aparecendo na live: backend, painel e overlay para o OBS.', tags: 'Node · HTML · OBS', href: 'https://github.com/devkoalaa/stream-message' },
-  { icon: 'crosshair', title: 'CS2 Smokes Hub', desc: 'Catálogo de smokes do Counter-Strike 2 por mapa, com API própria.', tags: 'Next.js · API', href: 'https://cs2smokeshub.vercel.app' },
-  { icon: 'sparkles', title: 'Este site', desc: `Partículas em shader escrito à mão, scroll coreografado e um terminal de verdade. Aperte ${SHORTCUT}.`, tags: 'Vite · Three.js · GSAP' },
+  { icon: 'message-circle', title: 'Dialogus', desc: 'SaaS de mediação entre psicólogos e pacientes, com sessões, agenda e assinatura.', tags: 'NestJS · Next.js · Turborepo', href: 'https://dialogus-api.vercel.app' },
+  { icon: 'gauge', title: 'Brasília Dyno', desc: 'Simulador de preparação de motor com curva de potência em tempo real.', tags: 'Next.js · Tailwind', href: 'https://brasilia-dyno.vercel.app' },
+  { icon: 'send', title: 'Bot do koala-server', desc: 'Opera o servidor pelo Telegram: status, logs, restart e alertas de deploy.', tags: 'TypeScript · Docker', href: 'https://github.com/devkoalaa/koala-server-telegram-bot' },
+  { icon: 'crosshair', title: 'CS2 Smokes Hub', desc: 'Catálogo de smokes do Counter-Strike 2 por mapa, com API própria.', tags: 'Next.js · NestJS', href: 'https://cs2smokeshub.vercel.app' },
 ];
 
 const PHRASES = ['sistemas de segurança pública', 'servidores de GTA RP', 'jogos que rodam no navegador', 'apps que eu mesmo uso', 'a infra que roda tudo isso'];
 
-const CONTAINERS = [
-  ['koala-fit', 'koala-fit:latest', 'Up 6 days'],
-  ['favela-relay', 'favela-relay-relay', 'Up 4 days'],
-  ['clodoaldo', 'clodoaldo:latest', 'Up 5 days'],
-  ['koala-server-telegram-bot', 'koala-server-telegram-bot', 'Up 2 weeks'],
-  ['uptime-kuma', 'louislam/uptime-kuma:2', 'Up 3 weeks'],
-  ['beszel', 'henrygd/beszel:latest', 'Up 3 weeks'],
-  ['beszel-agent', 'henrygd/beszel-agent', 'Up 3 weeks'],
-  ['postgres', 'postgres:18-alpine', 'Up 3 weeks'],
-];
 
 /* ---------------- static DOM ---------------- */
 
@@ -69,7 +54,6 @@ $('#cards').innerHTML = CARDS.map((c) => {
   </${tag}>`;
 }).join('');
 
-$('#resWall').innerHTML = RESOURCES.map((r) => `<span>automotiva_${r}</span>`).join('');
 $('#year').textContent = new Date().getFullYear();
 
 createIcons({
@@ -247,7 +231,7 @@ $$('[data-count]').forEach((el) => {
 
 // section headings + project blocks slide in
 if (!reduced) {
-  $$('.h2, .h3, .proj__desc, .feats li, .chips, .tl, .sspcard, .card, .infra__head .proj__kicker').forEach((el) => {
+  $$('.h2, .h3, .proj__desc, .chips, .tl, .sspcard, .card, .infra__head .proj__kicker').forEach((el) => {
     gsap.from(el, { y: 40, opacity: 0, duration: 1.1, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
   });
 }
@@ -285,10 +269,6 @@ if (!reduced) {
   const leds = [...lights.children];
 
   const needle = $('#tachoNeedle'), sweep = $('#tachoSweep'), gearEl = $('#tachoGear'), speedEl = $('#tachoSpeed');
-  const spans = $$('#resWall span');
-  const order = spans.map((_, i) => i).sort(() => Math.random() - 0.5);
-  const count = $('#resCount');
-  let lit = 0;
 
   // Rolar = acelerar: 6 marchas, cada uma ocupa 1/6 do scroll. O giro sobe até o corte e cai na troca.
   const GEAR_START = [IDLE_RPM, 4300, 4900, 5300, 5600, 5900];
@@ -304,12 +284,6 @@ if (!reduced) {
   };
 
   let progress = 0, target = drive(0), angle = ANGLE(IDLE_RPM), vel = 0, shown = IDLE_RPM, visible = false;
-  const renderWall = (p) => {
-    count.textContent = Math.round(p * 242);
-    const want = Math.round(p * spans.length);
-    while (lit < want) { const sp = spans[order[lit++]]; sp.classList.add('on', 'hot'); setTimeout(() => sp.classList.remove('hot'), 500); }
-    while (lit > want) spans[order[--lit]].classList.remove('on', 'hot');
-  };
 
   const setGear = (g) => {
     if (gearEl.textContent === g) return;
@@ -355,7 +329,6 @@ if (!reduced) {
       progress = Math.min(1, self.progress * 1.12);
       target = drive(progress);
       setGear(target.gear);
-      renderWall(progress);
     },
   });
   ScrollTrigger.create({ trigger: '.dash', start: 'top bottom', end: 'bottom top', onToggle: (s) => { visible = s.isActive; } });
@@ -387,12 +360,6 @@ if (!reduced) {
       });
       sw.querySelector('button').addEventListener('pointerdown', (e) => e.stopPropagation());
     },
-  });
-
-  const steps = $$('#pipeline li');
-  ScrollTrigger.create({
-    trigger: '#favela', start: 'top 60%', end: 'center 40%', scrub: true,
-    onUpdate: (self) => steps.forEach((li, i) => li.classList.toggle('on', self.progress * steps.length > i)),
   });
 })();
 
@@ -476,22 +443,6 @@ if (!reduced) {
   };
   requestAnimationFrame(loop);
 
-  // docker ps typed out once
-  const pre = $('#dockerPs');
-  const pad = (s, n) => s.padEnd(n).slice(0, n);
-  const lines = [
-    '<span class="g">ubuntu@koala-server</span>:<span class="c">~</span>$ docker ps --format "table {{.Names}}\\t{{.Status}}"',
-    '<span class="d">NAMES                       STATUS</span>',
-    ...CONTAINERS.map(([n, , st]) => `${pad(n, 28)}<span class="g">${st}</span>`),
-    '',
-    '<span class="g">ubuntu@koala-server</span>:<span class="c">~</span>$ uname -m',
-    'aarch64',
-    '<span class="g">ubuntu@koala-server</span>:<span class="c">~</span>$ <span class="caret">▍</span>',
-  ];
-  ScrollTrigger.create({
-    trigger: pre, start: 'top 85%', once: true,
-    onEnter: () => lines.forEach((l, i) => setTimeout(() => { pre.innerHTML += `${l}\n`; }, reduced ? 0 : i * 140)),
-  });
 })();
 
 /* ---------------- ssp timeline ---------------- */
