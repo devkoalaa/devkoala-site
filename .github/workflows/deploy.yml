@@ -1,0 +1,49 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      # A chave só tem permissão de rsync dentro de /var/www/devkoala (rrsync no servidor).
+      # Os modelos 3D (models/) ficam fora do git e moram só no servidor: o --exclude
+      # impede que o --delete apague eles.
+      - name: Enviar para o servidor
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+          DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ vars.DEPLOY_USER }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy
+          chmod 600 ~/.ssh/deploy
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          rsync -az --delete --exclude=/models/ -e "ssh -i ~/.ssh/deploy -o IdentitiesOnly=yes" \
+            dist/ "$DEPLOY_USER@$DEPLOY_HOST:./"
+
+      - name: Conferir o site
+        run: |
+          for i in $(seq 1 10); do
+            curl -fsS -o /dev/null https://devkoala.com/ && exit 0
+            sleep 3
+          done
+          exit 1
